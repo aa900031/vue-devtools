@@ -1,0 +1,43 @@
+{
+  "name": "@vue/devtools-server",
+  "version": "6.1.4",
+  "description": "Standalone vue-devtools server",
+  "repository": {
+    "url": "https://github.com/vuejs/devtools.git",
+    "type": "git",
+    "directory": "packages/server"
+  },
+  "main": "./lib/node/index.js",
+  "types": "./lib/node/index.d.ts",
+  "bin": {
+    "vue-devtools-server": "./lib/node/bin.js"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "start": "node ./lib/node/bin.js",
+    "build": "rimraf lib && npm run build:node && npm run build:browser",
+    "build:node": "rimraf lib/node && tsc -p ./tsconfig.json -outDir lib/node",
+    "build:browser": "rimraf lib/assets && cross-env NODE_ENV=production webpack"
+  },
+  "dependencies": {
+    "minimist": "^1.2.6",
+    "eta": "^1.12.3",
+    "h3": "^0.7.8",
+    "sirv": "^2.0.2",
+    "socket.io": "^4.4.0",
+    "socket.io-client": "^4.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "^13.9.1",
+    "@types/minimist": "^1.2.2",
+    "@vue-devtools/app-backend-core": "^0.0.0",
+    "@vue-devtools/app-frontend": "^0.0.0",
+    "@vue-devtools/build-tools": "^0.0.0",
+    "@vue-devtools/shared-utils": "^0.0.0",
+    "copy-webpack-plugin": "^10.2.4",
+    "webpack": "^5.35.1",
+    "webpack-cli": "^4.6.0"
+  }
+}
