@@ -1,27 +1,28 @@
 import http from 'http'
 import sirv from 'sirv'
+import polka from 'polka'
 import { render } from 'eta'
 import { Server } from 'socket.io'
-import { createApp, defineHandler } from 'h3'
 import clientContent from './html'
 
 export const createServer = (
   serverUrl: string,
   assetsDir: string,
 ): http.Server => {
-  const app = createApp()
-  const server = http.createServer(app)
+  const server = http.createServer()
 
-  app.use(sirv(assetsDir))
+  const app = polka({ server })
+    .use(sirv(assetsDir))
+    .use('/', async (req, res) => {
+      const url = new URL(serverUrl)
+      const content = await render(clientContent, {
+        devtoolsHost: `${url.protocol}//${url.hostname}`,
+        devtoolsPort: url.port,
+      })
 
-  app.use('/', defineHandler(async () => {
-    const url = new URL(serverUrl)
-
-    return await render(clientContent, {
-      devtoolsHost: `${url.protocol}//${url.hostname}`,
-      devtoolsPort: url.port,
+      res.end(content)
     })
-  }))
+  server.on('request', app.handler)
 
   const io = new Server(server, {
     cors: {

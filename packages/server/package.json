@@ -24,7 +24,7 @@
   "dependencies": {
     "minimist": "^1.2.6",
     "eta": "^1.12.3",
-    "h3": "^0.7.8",
+    "polka": "^0.5.2",
     "sirv": "^2.0.2",
     "socket.io": "^4.4.0",
     "socket.io-client": "^4.4.1"
@@ -32,6 +32,7 @@
   "devDependencies": {
     "@types/node": "^13.9.1",
     "@types/minimist": "^1.2.2",
+    "@types/polka": "^0.5.4",
     "@vue-devtools/app-backend-core": "^0.0.0",
     "@vue-devtools/app-frontend": "^0.0.0",
     "@vue-devtools/build-tools": "^0.0.0",
