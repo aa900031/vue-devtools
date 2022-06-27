@@ -28,6 +28,7 @@ export const createServer = (
     cors: {
       origin: true,
     },
+    maxHttpBufferSize: 50e6, // 50MB
   })
 
   let currHook: string | null = null
